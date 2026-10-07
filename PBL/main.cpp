@@ -1,39 +1,64 @@
 #include <iostream>
 #include <string>
 #include "Survivor.h"
+#include "Registry.h"
 
 using namespace std;
 
 int main()
 {
-    string id;
-    string name;
-    int age;
-    int severity;
-    string junction;
+    Registry registry;
 
-    cout << "===== DISASTER RELIEF SYSTEM =====" << endl;
+    string id, name, junction;
+    int age, severity, ch;
 
-    cout << "Enter Survivor ID: ";
-    cin >> id;
+    do
+    {
+        cout << "\n===== DISASTER RELIEF SYSTEM =====" << endl;
+        cout << "\n1. Insert";
+        cout << "\n2. Display";
+        cout << "\n3. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> ch;
 
-    cout << "Enter Survivor Name: ";
-    cin >> name;
+        switch (ch)
+        {
+        case 1:
+            cout << "\nEnter Survivor ID: ";
+            cin >> id;
 
-    cout << "Enter Age: ";
-    cin >> age;
+            cout << "Enter Survivor Name: ";
+            cin >> name;
 
-    cout << "Enter Severity (1-5): ";
-    cin >> severity;
+            cout << "Enter Age: ";
+            cin >> age;
 
-    cout << "Enter Trapped Junction: ";
-    cin >> junction;
+            cout << "Enter Severity (1-5): ";
+            cin >> severity;
 
-    Survivor s1(id, name, age, severity, junction);
+            cout << "Enter Trapped Junction: ";
+            cin >> junction;
 
-    cout << "\n===== SURVIVOR DETAILS =====" << endl;
+            {
+                Survivor s1(id, name, age, severity, junction);
+                registry.addSurvivor(s1);
+            }
 
-    s1.display();
+            break;
+
+        case 2:
+            registry.displayAll();
+            break;
+
+        case 3:
+            cout << "\nExiting program..." << endl;
+            break;
+
+        default:
+            cout << "\nInvalid choice!" << endl;
+        }
+
+    } while (ch != 3);
 
     return 0;
 }
