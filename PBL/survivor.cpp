@@ -1,4 +1,4 @@
-#include "Survivor.h"
+#include "survivor.h"
 
 Survivor::Survivor()
 {
