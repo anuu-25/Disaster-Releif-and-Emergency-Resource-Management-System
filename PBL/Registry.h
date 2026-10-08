@@ -1,6 +1,7 @@
 #ifndef REGISTRY_H
 #define REGISTRY_H
-#include "survivor.h"
+
+#include "Survivor.h"
 
 class Registry
 {
@@ -11,7 +12,7 @@ private:
 public:
     Registry();
 
-    bool addSurvivor(Survivor survivor);
+    void addSurvivor(Survivor survivor);
     void displayAll();
     void searchByID(string id);
 };
