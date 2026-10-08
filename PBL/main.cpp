@@ -2,12 +2,14 @@
 #include <string>
 #include "Survivor.h"
 #include "Registry.h"
+#include "PriorityQueue.h"
 
 using namespace std;
 
 int main()
 {
     Registry registry;
+    PriorityQueue priorityQueue;
 
     string id, name, junction;
     int age, severity, ch;
@@ -42,6 +44,7 @@ int main()
             {
                 Survivor s1(id, name, age, severity, junction);
                 registry.addSurvivor(s1);
+                priorityQueue.insert(s1);
             }
 
             break;
