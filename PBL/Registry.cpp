@@ -8,14 +8,14 @@ Registry::Registry()
     count = 0;
 }
 
-void Registry::addSurvivor(Survivor survivor)
+bool Registry::addSurvivor(Survivor survivor)
 {
     for (int i = 0; i < count; i++)
     {
         if (survivors[i].getID() == survivor.getID())
         {
             cout << "Error: Survivor ID already exists!" << endl;
-            return;
+            return false;
         }
     }
 
@@ -25,10 +25,12 @@ void Registry::addSurvivor(Survivor survivor)
         count++;
 
         cout << "Survivor added successfully!" << endl;
+        return true;
     }
     else
     {
         cout << "Registry is full!" << endl;
+        return false;
     }
 }
 
