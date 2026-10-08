@@ -1,1 +1,20 @@
+#ifndef PRIORITYQUEUE_H
+#define PRIORITYQUEUE_H
 
+#include "Survivor.h"
+
+class PriorityQueue
+{
+private:
+    Survivor queue[100];
+    int count;
+
+public:
+    PriorityQueue();
+
+    void insert(Survivor survivor);
+    void removeHighest();
+    void display();
+};
+
+#endif
