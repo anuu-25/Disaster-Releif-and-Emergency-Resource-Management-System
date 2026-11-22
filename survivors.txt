@@ -1,0 +1,4 @@
+1001|Aarav|32|5|J1|Severe injury
+1002|Meera|24|3|J3|Fracture
+1003|Rohan|45|2|J2|Minor injury
+1004|aman|15|2|J2|Fracture
