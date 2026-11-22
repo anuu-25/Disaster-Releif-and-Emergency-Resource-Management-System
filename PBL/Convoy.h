@@ -4,34 +4,35 @@
 
 #include <iostream>
 #include <string>
-#include "SupplyBatch.h"
-
 using namespace std;
 
-struct ConvoyNode
+struct ConvoyData
 {
-    string truckID;
-    SupplyBatch batch;
-    ConvoyNode *next;
-    ConvoyNode *prev;
+    int ID;
+    string vehicle;
+    string destination;
 };
 
 class Convoy
 {
 private:
-    ConvoyNode *head;
-    ConvoyNode *tail;
-    int count;
-    int nextTruckNumber;
+    struct Node
+    {
+        ConvoyData data;
+        Node *next;
+    };
+
+    Node *head;
 
 public:
     Convoy();
     ~Convoy();
-
-    void addTruck(SupplyBatch batch);
-    bool removeTruck(string truckID);
-    void displayForward();
-    void displayBackward();
+    void addConvoy(ConvoyData C);
+    void displayConvoys() const;
+    int copyConvoys(ConvoyData list[], int limit) const;
+    bool removeConvoy(int id);
+    bool isVehicleAvailable(string vehicle) const;
+    bool returnVehicle(int id);
 };
 
 #endif
