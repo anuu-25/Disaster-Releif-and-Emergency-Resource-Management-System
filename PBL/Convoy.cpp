@@ -1,133 +1,136 @@
 
-#include <iostream>
-#include "Convoy.h"
 
-using namespace std;
+#include "Convoy.h"
 
 Convoy::Convoy()
 {
-    head = nullptr;
-    tail = nullptr;
-    count = 0;
-    nextTruckNumber = 101;
+    head = NULL;
 }
 
 Convoy::~Convoy()
 {
-    ConvoyNode *current = head;
+    Node *P = head;
 
-    while (current != nullptr)
+    while (P != NULL)
     {
-        ConvoyNode *next = current->next;
-        delete current;
-        current = next;
+        Node *R = P;
+        P = P->next;
+        delete R;
     }
 }
 
-void Convoy::addTruck(SupplyBatch batch)
+void Convoy::addConvoy(ConvoyData C)
 {
-    ConvoyNode *newNode = new ConvoyNode();
+    Node *P = new Node;
 
-    newNode->truckID = "T" + to_string(nextTruckNumber);
-    nextTruckNumber++;
+    P->data = C;
+    P->next = head;
 
-    newNode->batch = batch;
-    newNode->next = nullptr;
-    newNode->prev = nullptr;
-
-    if (head == nullptr)
-    {
-        head = tail = newNode;
-    }
-    else
-    {
-        tail->next = newNode;
-        newNode->prev = tail;
-        tail = newNode;
-    }
-
-    count++;
-
-    cout << "\nTruck assigned successfully!" << endl;
-    cout << "Truck ID: " << newNode->truckID << endl;
-    newNode->batch.display();
+    head = P;
 }
 
-bool Convoy::removeTruck(string truckID)
+bool Convoy::isVehicleAvailable(string vehicle) const
 {
-    if (head == nullptr)
-    {
-        cout << "Convoy is empty!" << endl;
-        return false;
-    }
+    Node *P = head;
 
-    ConvoyNode *current = head;
-
-    while (current != nullptr)
+    while (P != NULL)
     {
-        if (current->truckID == truckID)
+        if (P->data.vehicle == vehicle)
         {
-            if (current->prev != nullptr)
-                current->prev->next = current->next;
+            return false;
+        }
+
+        P = P->next;
+    }
+
+    return true;
+}
+
+bool Convoy::removeConvoy(int id)
+{
+    Node *P = head;
+    Node *R = NULL;
+
+    while (P != NULL)
+    {
+        if (P->data.ID == id)
+        {
+            if (R == NULL)
+            {
+                head = P->next;
+            }
             else
-                head = current->next;
+            {
+                R->next = P->next;
+            }
 
-            if (current->next != nullptr)
-                current->next->prev = current->prev;
-            else
-                tail = current->prev;
+            delete P;
 
-            delete current;
-            count--;
-
-            cout << "Truck " << truckID
-                 << " removed from convoy!" << endl;
             return true;
         }
 
-        current = current->next;
+        R = P;
+        P = P->next;
     }
 
-    cout << "Truck not found!" << endl;
     return false;
 }
 
-void Convoy::displayForward()
+bool Convoy::returnVehicle(int id)
 {
-    if (head == nullptr)
+    if (removeConvoy(id))
     {
-        cout << "Convoy list is empty!" << endl;
+        cout << "Vehicle returned successfully!" << endl;
+        return true;
+    }
+
+    cout << "Convoy ID not found." << endl;
+
+    return false;
+}
+
+void Convoy::displayConvoys() const
+{
+    Node *P = head;
+
+    if (P == NULL)
+    {
+        cout << "No active convoys." << endl;
         return;
     }
 
-    cout << "\n===== CONVOY DETAILS =====" << endl;
+    cout << "\nACTIVE RESCUE CONVOYS\n";
 
-    ConvoyNode *current = head;
-
-    while (current != nullptr)
+    while (P != NULL)
     {
-        cout << "\nTruck ID: " << current->truckID << endl;
-        current->batch.display();
-        current = current->next;
+        cout << "Convoy ID: " << P->data.ID << endl;
+
+        cout << "Vehicle: "
+             << P->data.vehicle << endl;
+
+        cout << "Destination: "
+             << P->data.destination << endl;
+
+        cout << "Status: Dispatched" << endl;
+
+        cout << "-----------------------" << endl;
+
+        P = P->next;
     }
 }
 
-void Convoy::displayBackward()
+int Convoy::copyConvoys(ConvoyData list[], int limit) const
 {
-    if (tail == nullptr)
+    Node *P = head;
+    int count = 0;
+
+    while (P != NULL && count < limit)
     {
-        cout << "Convoy list is empty!" << endl;
-        return;
+        list[count] = P->data;
+        count++;
+
+        P = P->next;
     }
 
-    cout << "\n===== CONVOY DETAILS (BACKWARD) =====" << endl;
-
-    ConvoyNode *current = tail;
-
-    while (current != nullptr)
-    {
-        cout << "\nTruck ID: " << current->truckID << endl;
-        current->batch.display();
-        current = current->prev;
-    }
+    return count;
 }
