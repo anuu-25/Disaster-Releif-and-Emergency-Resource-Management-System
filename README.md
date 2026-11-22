@@ -11,17 +11,6 @@
 ## Overview
 **CrisisGrid** is an offline, menu-driven C++ terminal application built for post-disaster emergency coordination when internet connectivity and cloud servers are unavailable[cite: 71, 92]. Using Object-Oriented Programming and custom Data Structures, it manages survivor records, medical trauma triage, relief supply dispatches, active rescue convoys, road network routing, and local file persistence[cite: 71, 92].
 
----
-
-## Team Members & Contributions
-| Member | University ID | Role | Modules |
-| :--- | :--- | :--- | :--- |
-| **Anushka (Team Lead)** | 2510012382 | Supply Queue & Main CLI | `CircularQueue.h`, `CircularQueue.cpp`, `main.cpp` |
-| **Anushka Singh** | 2510012627 | Convoy Tracker & Persistence | `Convoy.h`, `Convoy.cpp`, `data/survivors.txt` |
-| **Shashwat S. Negi** | 2510011042 | Triage, Graph & Undo Stack | `PriorityQueue.h/.cpp`, `RoadNetwork.h/.cpp`, `Stack.h/.cpp` |
-| **Aryan Gupta** | 24021191 | Survivor Registry & Records | `Survivor.h/.cpp`, `Registry.h/.cpp` |
-
----
 
 ## Features & Data Structures Used
 1. **Survivor Management (`Survivor`, `Registry` — Singly Linked List):** Registers survivors with auto-generated IDs, searches by name/ID, updates severity levels, and saves/loads records locally in `data/survivors.txt` using C++ `fstream`.
